@@ -32,10 +32,10 @@ function PolygonGeometry(sides) {
 	}
 	// YOUR CODE HERE
 	// Write the code to generate minimum number of faces for the polygon.
-  for (let i = 0; i < sides; i++) {
-    geo.faces.push(new THREE.Face3(i, (i + 1) % sides, 0));
-    // geo.faces.push(new THREE.Face3(0, (i - 1) % sides, i));
-  }
+	for (let face = 0; face < sides -2; face++) {
+		geo.faces.push(new THREE.Face3(0, face + 1, face + 2));
+	}
+
 	// Return the geometry object
 	return geo;
 }
