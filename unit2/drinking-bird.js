@@ -55,36 +55,51 @@ function init() {
 
 // Supporting frame for the bird - base + legs + feet
 function createSupport() {
+	const legHeight = 52;
+	const offset = 77 + 6 / 2; // offset 77 + half of depth 6/2
 
 	var cubeMaterial = new THREE.MeshLambertMaterial( { color: 0xF07020 } );
+
 	// base
 	var cube;
 	cube = new THREE.Mesh(
-		new THREE.CubeGeometry( 20+64+110, 4, 2*77 ), cubeMaterial );
+		new THREE.CubeGeometry( 20 + 64 + 110, 4, 2 * 77 ), cubeMaterial );
 	cube.position.x = -45;	// (20+32) - half of width (20+64+110)/2
-	cube.position.y = 4/2;	// half of height
+	cube.position.y = 4 / 2;	// half of height
 	cube.position.z = 0;	// centered at origin
 	scene.add( cube );
 
 	// left foot
 	cube = new THREE.Mesh(
-		new THREE.CubeGeometry( 20+64+110, 52, 6 ), cubeMaterial );
+		new THREE.CubeGeometry( 20 + 64 + 110, legHeight, 6 ), cubeMaterial );
 	cube.position.x = -45;	// (20+32) - half of width (20+64+110)/2
-	cube.position.y = 52/2;	// half of height
-	cube.position.z = 77 + 6/2;	// offset 77 + half of depth 6/2
+	cube.position.y = legHeight / 2;	// half of height
+	cube.position.z = offset;
 	scene.add( cube );
 
 	// left leg
 	cube = new THREE.Mesh(
-		new THREE.CubeGeometry( 64, 334+52, 6 ), cubeMaterial );
+		new THREE.CubeGeometry( 64, 334 + legHeight, 6 ), cubeMaterial );
 	cube.position.x = 0;	// centered on origin along X
-	cube.position.y = (334+52)/2;
-	cube.position.z = 77 + 6/2;	// offset 77 + half of depth 6/2
+	cube.position.y = (334 + legHeight) / 2;
+	cube.position.z = offset;
 	scene.add( cube );
 
 	// right foot
+	cube = new THREE.Mesh(
+		new THREE.CubeGeometry( 20 + 64 + 110, legHeight, 6 ), cubeMaterial );
+	cube.position.x = -45;	// (20+32) - half of width (20+64+110)/2
+	cube.position.y = legHeight / 2;	// half of height
+	cube.position.z = -offset;
+	scene.add( cube );
 
 	// right leg
+	cube = new THREE.Mesh(
+		new THREE.CubeGeometry( 64, 334 + legHeight, 6 ), cubeMaterial );
+	cube.position.x = 0;	// centered on origin along X
+	cube.position.y = (334 + legHeight) / 2;
+	cube.position.z = -offset;
+	scene.add( cube );
 
 }
 
@@ -93,12 +108,41 @@ function createBody() {
 	var sphereMaterial = new THREE.MeshLambertMaterial( { color: 0xA00000 } );
 	var cylinderMaterial = new THREE.MeshLambertMaterial( { color: 0x0000D0 } );
 
+	const body = new THREE.Mesh(new THREE.SphereGeometry(50, 32, 16), sphereMaterial);
+	body.position.x = 0;
+	body.position.y = 150;
+	body.position.z = 0;
+	scene.add(body);
+
+	const neck = new THREE.Mesh(new THREE.CylinderGeometry(15, 15, 300, 32), cylinderMaterial);
+	neck.position.x = 0;
+	neck.position.y = 300;
+	neck.position.z = 0;
+	scene.add(neck);
 }
 
 // Head of the bird - head + hat
 function createHead() {
 	var sphereMaterial = new THREE.MeshLambertMaterial( { color: 0xA00000 } );
 	var cylinderMaterial = new THREE.MeshLambertMaterial( { color: 0x0000D0 } );
+
+	const head = new THREE.Mesh(new THREE.SphereGeometry(50, 32, 16), sphereMaterial);
+	head.position.x = 0;
+	head.position.y = 450;
+	head.position.z = 0;
+	scene.add(head);
+
+	const hat = new THREE.Mesh(new THREE.CylinderGeometry(70, 70, 10, 32), cylinderMaterial);
+	hat.position.x = 0;
+	hat.position.y = 490;
+	hat.position.z = 0;
+	scene.add(hat);
+
+	const hatTop = new THREE.Mesh(new THREE.CylinderGeometry(40, 40, 70, 32), cylinderMaterial);
+	hatTop.position.x = 0;
+	hatTop.position.y = 520;
+	hatTop.position.z = 0;
+	scene.add(hatTop);
 
 }
 
