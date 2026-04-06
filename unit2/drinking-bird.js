@@ -59,6 +59,7 @@ function createSupport() {
 	const offset = 77 + 6 / 2; // offset 77 + half of depth 6/2
 
 	var cubeMaterial = new THREE.MeshLambertMaterial( { color: 0xF07020 } );
+  var cubeMaterialW = new THREE.MeshLambertMaterial( { color: 0xFFFFFF } );
 
 	// base
 	var cube;
@@ -79,7 +80,7 @@ function createSupport() {
 
 	// left leg
 	cube = new THREE.Mesh(
-		new THREE.CubeGeometry( 64, 334 + legHeight, 6 ), cubeMaterial );
+		new THREE.CubeGeometry( 64, 230 + legHeight, 6 ), cubeMaterialW );
 	cube.position.x = 0;	// centered on origin along X
 	cube.position.y = (334 + legHeight) / 2;
 	cube.position.z = offset;
@@ -95,7 +96,7 @@ function createSupport() {
 
 	// right leg
 	cube = new THREE.Mesh(
-		new THREE.CubeGeometry( 64, 334 + legHeight, 6 ), cubeMaterial );
+		new THREE.CubeGeometry( 64, 230 + legHeight, 6 ), cubeMaterialW );
 	cube.position.x = 0;	// centered on origin along X
 	cube.position.y = (334 + legHeight) / 2;
 	cube.position.z = -offset;
