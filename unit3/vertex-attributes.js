@@ -10,10 +10,16 @@ function fillScene() {
 
 	// Triangle Mesh
 	var material, geometry, mesh;
-	material = new THREE.MeshBasicMaterial( { vertexColors: THREE.VertexColors, side: THREE.DoubleSide } );
+	material = new THREE.MeshBasicMaterial( { vertexColors: THREE.VertexColors, /*side: THREE.DoubleSide*/ } );
 	geometry = new THREE.Geometry();
 
 	// Student: add a colored triangle here
+  geometry.vertices.push( new THREE.Vector3( 0, 100, 0 ) );
+  geometry.vertices.push( new THREE.Vector3( 100, 0, 0 ) );
+  geometry.vertices.push( new THREE.Vector3( 0, 0, 100 ) );
+
+  geometry.faces.push(new THREE.Face3(0, 2, 1));
+  geometry.faces[0].vertexColors = [new THREE.Color(0xFF0000), new THREE.Color(0x00FF00), new THREE.Color(0x0000FF)];
 
 
 	mesh = new THREE.Mesh( geometry, material );
