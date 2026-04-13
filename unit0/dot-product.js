@@ -1,11 +1,4 @@
 "use strict"; // good practice - see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode
-////////////////////////////////////////////////////////////////////////////////
-// Staircase exercise
-// Your task is to complete the model for simple stairs
-// Using the provided sizes and colors, complete the staircase
-// and reach the Gold Cup!
-////////////////////////////////////////////////////////////////////////////////
-/*global THREE, Coordinates, $, document, window, dat*/
 
 var camera, scene, renderer;
 var cameraControls, effectController;
@@ -18,6 +11,8 @@ var ground = true;
 
 function started() {
   console.log("Started");
+  const vec = new Vector(0, 1, 0);
+  console.log('vec: ', vec);
 }
 
 function init() {
