@@ -29,6 +29,8 @@ function createCapsule( material, radius, top, bottom, segmentsWidth, openTop, o
 	openTop = (openTop === undefined) ? false : openTop;
 	openBottom = (openBottom === undefined) ? false : openBottom;
 
+
+  const grouped = new THREE.Object3D();
 	// get cylinder height
 	var cylAxis = new THREE.Vector3();
 	cylAxis.subVectors( top, bottom );
@@ -43,6 +45,7 @@ function createCapsule( material, radius, top, bottom, segmentsWidth, openTop, o
 	var cylGeom = new THREE.CylinderGeometry( radius, radius, length, segmentsWidth, 1, 1 );
 	var cyl = new THREE.Mesh( cylGeom, material );
 
+  grouped.add(cyl);
 	// pass in the cylinder itself, its desired axis, and the place to move the center.
 	makeLengthAngleAxisTransform( cyl, cylAxis, center );
 
@@ -50,10 +53,23 @@ function createCapsule( material, radius, top, bottom, segmentsWidth, openTop, o
 	// Here's a sphere's geometry. Use it to cap the cylinder if
 	// openTop and/or openBottom is false. Bonus points: use instancing!
 	var sphGeom = new THREE.SphereGeometry( radius, segmentsWidth, segmentsWidth/2 );
+  
+  if (!openTop) {
+    var sphereTop = new THREE.Mesh(sphGeom, material);
+    
+    sphereTop.position = top;
+    grouped.add(sphereTop);
+  }
+
+  if (!openBottom) {
+    var sphereBottom = new THREE.Mesh(sphGeom, material);
+
+    sphereBottom.position = bottom;
+    grouped.add(sphereBottom);
+  }
 
 	// You'll probably want to return something other than this...
-	return cyl;
-
+	return grouped;
 }
 
 // Transform cylinder to align with given axis and then move to center
