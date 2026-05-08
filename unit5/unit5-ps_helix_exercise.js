@@ -35,24 +35,32 @@ function createHelix( material, radius, tube, radialSegments, tubularSegments, h
 	var helix = new THREE.Object3D();
 
 	var top = new THREE.Vector3();
+  var bottom = new THREE.Vector3();
 
 	var sine_sign = clockwise ? 1 : -1;
+  bottom.set(radius, -height / 2, 0);
+
+  var openTop = false;
+  var openBottom = false;
 
 	///////////////
 	// YOUR CODE HERE: remove spheres, use capsules instead, going from point to point.
 	//
 	var sphGeom = new THREE.SphereGeometry( tube, tubularSegments, tubularSegments/2 );
-	for ( var i = 0; i <= arc*radialSegments ; i++ )
+	for (var i = 0; i <= arc*radialSegments; i++)
 	{
 		// going from X to Z axis
 		top.set( radius * Math.cos( i * 2*Math.PI / radialSegments ),
 		height * (i/(arc*radialSegments)) - height/2,
 		sine_sign * radius * Math.sin( i * 2*Math.PI / radialSegments ) );
 
-		var sphere = new THREE.Mesh( sphGeom, material );
-		sphere.position.copy( top );
-
-		helix.add( sphere );
+		// var sphere = new THREE.Mesh( sphGeom, material );
+    var capsule = createCapsule(material, tube, top, bottom, tubularSegments, openTop, openBottom);
+		capsule.position.copy( top );
+    
+		helix.add( capsule );
+    openBottom = true;
+    bottom.copy(top);
 	}
 	///////////////
 
@@ -109,7 +117,6 @@ function createCapsule( material, radius, top, bottom, segmentsWidth, openTop, o
 	}
 
 	return capsule;
-
 }
 
 // Transform cylinder to align with given axis and then move to center
@@ -186,42 +193,42 @@ function fillScene() {
 
 	helix = createHelix( greenMaterial, radius/2, tube, radialSegments, segmentsWidth, height, arc, false );
 	helix.position.y = height/2;
-	scene.add( helix );
+	// scene.add( helix );
 
 	// DNA
 	helix = createHelix( blueMaterial, radius, tube/2, radialSegments, segmentsWidth, height, arc, false );
 	helix.position.y = height/2;
 	helix.position.z = 2.5 * radius;
-	scene.add( helix );
+	// scene.add( helix );
 
 	helix = createHelix( blueMaterial, radius, tube/2, radialSegments, segmentsWidth, height, arc, false );
 	helix.rotation.y = 120 * Math.PI / 180;
 	helix.position.y = height/2;
 	helix.position.z = 2.5 * radius;
-	scene.add( helix );
+	// scene.add( helix );
 
 	helix = createHelix( grayMaterial, radius, tube/2, radialSegments, segmentsWidth, height/2, arc, true );
 	helix.position.y = height/2;
 	helix.position.x = 2.5 * radius;
-	scene.add( helix );
+	// scene.add( helix );
 
 	helix = createHelix( yellowMaterial, 0.75*radius, tube/2, radialSegments, segmentsWidth, height, 4*arc, false );
 	helix.position.y = height/2;
 	helix.position.x = 2.5 * radius;
 	helix.position.z = -2.5 * radius;
-	scene.add( helix );
+	// scene.add( helix );
 
 	helix = createHelix( cyanMaterial, 0.75*radius, 4*tube, radialSegments, segmentsWidth, height, 2*arc, false );
 	helix.position.y = height/2;
 	helix.position.x = 2.5 * radius;
 	helix.position.z = 2.5 * radius;
-	scene.add( helix );
+	// scene.add( helix );
 
 	helix = createHelix( magentaMaterial, radius, tube, radialSegments, segmentsWidth, height, arc, true );
 	helix.rotation.x = 45 * Math.PI / 180;
 	helix.position.y = height/2;
 	helix.position.z = -2.5 * radius;
-	scene.add( helix );
+	// scene.add( helix );
 }
 
 function init() {
