@@ -255,6 +255,9 @@ function animate() {
 
 function render() {
 	var delta = clock.getDelta();
+  
+  const radians = effectController.angle * Math.PI / 180;
+  light.position.set(Math.cos(radians), 1, Math.sin(radians));
 	cameraControls.update(delta);
 	renderer.render(scene, camera);
 }
