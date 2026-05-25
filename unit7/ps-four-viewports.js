@@ -244,6 +244,20 @@ function init() {
 	// set X to be the up axis
 	topCam.up.set( 1, 0, 0 );
 
+  frontCam = new THREE.OrthographicCamera(
+		-aspectRatio*viewSize / 2, aspectRatio*viewSize / 2,
+		viewSize / 2, -viewSize / 2,
+		-1000, 1000 );
+  // set Y to be the up axis
+	frontCam.up.set( 0, 1, 0 );
+
+  sideCam = new THREE.OrthographicCamera(
+		-aspectRatio*viewSize / 2, aspectRatio*viewSize / 2,
+		viewSize / 2, -viewSize / 2,
+		-1000, 1000 );
+  // set Y to be the up axis
+	sideCam.up.set( 0, 1, 0 );
+
 	// CONTROLS
 	cameraControls = new THREE.OrbitAndPanControls(camera, renderer.domElement);
 	cameraControls.target.set(0,310,0);
@@ -287,6 +301,22 @@ function render() {
 	topCam.lookAt( cameraControls.target );
 	renderer.setViewport( 0.5*canvasWidth, 0.5*canvasHeight, 0.5*canvasWidth, 0.5*canvasHeight );
 	renderer.render( scene, topCam );
+
+  // front
+  frontCam.position.copy( cameraControls.target );
+	// move down along X axis a unit and so look at front at bird
+	frontCam.position.x -=1 ;
+	frontCam.lookAt( cameraControls.target );
+	renderer.setViewport( 0, 0.5*canvasHeight, 0.5*canvasWidth, 0.5*canvasHeight );
+	renderer.render( scene, frontCam );
+
+  // side
+  frontCam.position.copy( cameraControls.target );
+	// move back up along Z axis a unit and so look at side at bird
+	frontCam.position.z +=1 ;
+	frontCam.lookAt( cameraControls.target );
+	renderer.setViewport( 0.5*canvasWidth, 0, 0.5*canvasWidth, 0.5*canvasHeight );
+	renderer.render( scene, frontCam );
 
 }
 

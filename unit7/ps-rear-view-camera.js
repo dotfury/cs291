@@ -307,6 +307,12 @@ function render() {
 	renderer.setViewport( 0.75 * canvasWidth, 0.75 * canvasHeight,
 		0.25 * canvasWidth, 0.25 * canvasHeight );
 	renderer.clear();
+
+  rearCam.position.copy( camera.position );
+  rearTarget.copy( camera.position );
+  rearTarget.sub( cameraControls.target );
+  // rearTarget.add( camera.position );
+  rearCam.lookAt( rearTarget );
 	renderer.render( scene, rearCam );
 }
 
