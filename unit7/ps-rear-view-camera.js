@@ -311,7 +311,7 @@ function render() {
   rearCam.position.copy( camera.position );
   rearTarget.copy( camera.position );
   rearTarget.sub( cameraControls.target );
-  // rearTarget.add( camera.position );
+  rearTarget.add( camera.position );
   rearCam.lookAt( rearTarget );
 	renderer.render( scene, rearCam );
 }
