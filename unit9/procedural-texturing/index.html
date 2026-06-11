@@ -50,8 +50,9 @@ void main() {
 
 	// Student: use the vModelPosition as an input to a function and
 	// then multiply the diffuse contribution by this amount.
+  float scaledDiffuse = 0.5 + 0.5 * (sin(uScale * vModelPosition.x) * sin(uScale * vModelPosition.y) * sin(uScale * vModelPosition.z));
 
-	gl_FragColor = vec4( uKd * uMaterialColor * uDirLightColor * diffuse, 1.0 );
+	gl_FragColor = vec4( uKd * uMaterialColor * uDirLightColor * (diffuse * scaledDiffuse), 1.0 );
 }
 		</script>
 		<script type="text/javascript" src="shaders.js"></script>
